@@ -1,0 +1,82 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <title>CSS3 Perspective Playground</title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+
+<body>
+  <div id="app">
+    <h2>First Vue app: perspective</h2>
+    <main>
+      <section class="settings">
+        <div class="settings-container">
+          <label>perspective: {{ perspective }}</label>
+          <input type="range" min="120" max="350" v-model="perspective" />
+
+          <label>rotateX: {{ rotateX }} </label>
+          <input type="range" min="-180" max="180" v-model="rotateX"/>
+
+          <label>rotateY: {{ rotateY }} </label>
+          <input type="range" min="-180" max="180" v-model="rotateY"/>
+
+          <label>rotateZ: {{ rotateZ }} </label>
+          <input type="range" min="-180" max="180" v-model="rotateZ"/>
+
+          <button type="button" @click.prevent="resetBtn">Reset</button>
+          <button id="copy" type="button"@click.prevent="copyBtn">Copy
+            <ion-icon id="check_icon" name="checkmark-outline"></ion-icon>
+          </button>
+          
+            
+          
+        </div>
+      </section>
+      <section class="output">
+        <div class="box-container">
+          <div class="box"
+          :style="box_styles"></div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <css-doodle>
+    :doodle {
+    @grid: 1x3 / 100vmax;
+    position: absolute;
+    top: 0; left: 0;
+    z-index: -1;
+    }
+
+    @size: 100% 150%;
+    position: absolute;
+
+    background: @m(100, (
+    linear-gradient(transparent, @p(
+    #FFFDE1@repeat(2, @p([0-9a-f])),
+    #105e83@repeat(2, @p([0-9a-f]))
+    ))
+    @r(0%, 100%) @r(0%, 100%) /
+    @r(1px) @r(23vmin)
+    no-repeat
+    ));
+
+    will-change: transform;
+    animation: f 50s linear calc(-50s / @size() * @i()) infinite;
+    @keyframes f {
+    from { transform: translateY(-100%) }
+    to { transform: translateY(100%) }
+    }
+  </css-doodle>
+
+  <script src="https://unpkg.com/css-doodle@0.6.1/css-doodle.min.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
